@@ -5,9 +5,9 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import Pagination from "@material-ui/lab/Pagination";
 
 import React from "react";
+import { PaginationList } from "../components/PaginationList";
 import { SearchField } from "../components/SearchField";
 
 import mockList from "../mockData/mockList.json";
@@ -22,22 +22,26 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       fontFamily: "Verdana",
     },
+    media: {
+      width: "100%",
+      height: "initial",
+    },
   })
 );
+
 export const Home = () => {
   const classes = useStyles();
   console.log("mockList.Search=", mockList.Search);
-  const pagesCount = mockList.Search.length;
+  const moviesList = mockList.Search;
+
   return (
     <>
       <Grid container direction="column" alignItems="center">
         <Typography variant="h1" className={classes.title}>
           Your Movies Library
         </Typography>
-        {/* <Grid item alignItems="center"> */}
         <SearchField />
-        {/* </Grid> */}
-        <Pagination count={pagesCount} size="large" />
+        <PaginationList moviesList={moviesList} />
       </Grid>
     </>
   );

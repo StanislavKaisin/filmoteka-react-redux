@@ -20,8 +20,6 @@ function App() {
           <Movie />
         </Route>
       </Switch>
-
-      {/* {children} */}
     </>
   );
 }
