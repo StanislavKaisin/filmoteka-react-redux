@@ -24,10 +24,6 @@ import { ScrollTop } from "./ScrollTop";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    positionContainer: { position: "absolute" },
-    positionRelative: {
-      position: "relative",
-    },
     container: {
       padding: "1rem 0 1rem 0",
     },
