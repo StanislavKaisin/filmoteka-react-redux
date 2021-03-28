@@ -6,9 +6,10 @@ import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import App from "./App";
+import { rootReducer } from "./redux/rootReducer";
 import reportWebVitals from "./reportWebVitals";
 
-const store = createStore(() => {}, composeWithDevTools(applyMiddleware()));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 
 ReactDOM.render(
   <React.StrictMode>

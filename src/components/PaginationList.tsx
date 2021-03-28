@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -21,6 +22,9 @@ import { ICard } from "../interfaces/ICard";
 import { getPagesCount } from "./PaginationListHelpers/getPagesCount";
 import { splitMoviesList } from "./PaginationListHelpers/splitMoviesList";
 import { ScrollTop } from "./ScrollTop";
+import { Loader } from "./Loader";
+import { useSelector } from "react-redux";
+import { IState } from "../redux/rootReducer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,7 +58,7 @@ export interface IPaginationList {
 }
 
 export const PaginationList = ({ moviesList }: IPaginationList) => {
-  console.log("PaginationList=");
+  // console.log("PaginationList=");
   const classes = useStyles();
   const pagesCount = getPagesCount(moviesList.length);
   const splittedMoviesList = splitMoviesList(moviesList, pagesCount);
@@ -66,8 +70,6 @@ export const PaginationList = ({ moviesList }: IPaginationList) => {
   // console.log("displayedMoviesList=", displayedMoviesList);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  console.log("theme=", theme);
-  console.log("matches=", matches);
 
   const handleChange = (event: React.ChangeEvent<any>, page: number) => {
     setdisplayedMoviesList(splittedMoviesList[page - 1]);
