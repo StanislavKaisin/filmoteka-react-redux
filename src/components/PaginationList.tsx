@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -16,15 +15,21 @@ import {
 } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import React, { useState } from "react";
+import React from "react";
+// { useEffect, useState }
 
 import { ICard } from "../interfaces/ICard";
-import { getPagesCount } from "./PaginationListHelpers/getPagesCount";
-import { splitMoviesList } from "./PaginationListHelpers/splitMoviesList";
+// import { getPagesCount } from "./PaginationListHelpers/getPagesCount";
+// import { splitMoviesList } from "./PaginationListHelpers/splitMoviesList";
 import { ScrollTop } from "./ScrollTop";
-import { Loader } from "./Loader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../redux/rootReducer";
+import { setCurrentPage } from "../redux/currentPage/currentPageActions";
+// import { fetchMovieAction } from "../redux/fetchMovie/fetchMovieActions";
+import { useHistory } from "react-router-dom";
+// import { Loader } from "./Loader";
+// import { useSelector } from "react-redux";
+// import { IState } from "../redux/rootReducer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,6 +55,12 @@ const useStyles = makeStyles((theme: Theme) =>
       textTransform: "uppercase",
       // fontWeight: "bolder",
     },
+    pagination: {
+      width: "100%",
+    },
+    backToTopAnchor: {
+      height: 0,
+    },
   })
 );
 
@@ -60,28 +71,44 @@ export interface IPaginationList {
 export const PaginationList = ({ moviesList }: IPaginationList) => {
   // console.log("PaginationList=");
   const classes = useStyles();
-  const pagesCount = getPagesCount(moviesList.length);
-  const splittedMoviesList = splitMoviesList(moviesList, pagesCount);
-  // console.log("moviesList", moviesList);
-
-  const [displayedMoviesList, setdisplayedMoviesList] = useState(
-    splittedMoviesList[0]
+  // const pagesCount = getPagesCount(moviesList.length);
+  const pagesCount = Math.ceil(
+    useSelector((state: IState) => state.searchResults.totalResults) / 10
   );
+  // const splittedMoviesList = splitMoviesList(moviesList, pagesCount);
+  // console.log("moviesList", moviesList);
+  // console.log("pagesCount", pagesCount);
+  // const [displayedMoviesList, setdisplayedMoviesList] = useState(
+  //   splittedMoviesList[0]
+  // );
+  // useEffect(() => {
+  //   setdisplayedMoviesList(moviesList);
+  // }, [moviesList]);
+
   // console.log("displayedMoviesList=", displayedMoviesList);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
-
+  const displayedMoviesList = moviesList;
+  const searchRequest = useSelector(
+    (state: IState) => state.search.searchRequest
+  );
+  const dispatch = useDispatch();
+  const history = useHistory();
   const handleChange = (event: React.ChangeEvent<any>, page: number) => {
-    setdisplayedMoviesList(splittedMoviesList[page - 1]);
+    // setdisplayedMoviesList(splittedMoviesList[page - 1]);
+    // console.log(`page`, page);
+    // console.log(`searchRequest`, searchRequest);
+    dispatch(setCurrentPage(page));
+  };
+  const handleClick = (movieId: string) => {
+    // dispatch(fetchMovieAction(movieId));
+    history.push("/movie/?=" + movieId);
   };
 
   return (
     <>
-      <Grid
-        container
-        // className={classes.positionContainer}
-      >
-        <Toolbar id="back-to-top-anchor" />
+      <Grid container spacing={0}>
+        <Toolbar id="back-to-top-anchor" className={classes.backToTopAnchor} />
         <Grid container className={classes.container} spacing={2}>
           <Grid
             container
@@ -90,57 +117,91 @@ export const PaginationList = ({ moviesList }: IPaginationList) => {
             wrap="wrap"
             // className={classes.positionContainer}
           >
-            {displayedMoviesList ? (
-              displayedMoviesList.map((movie: ICard) => (
-                <Grid item key={movie.imdbID} xs={12} sm={6} md={4}>
-                  <Card className={classes.root}>
-                    <CardActionArea>
-                      <CardMedia
-                        image={movie.Poster}
-                        title={movie.Title}
-                        className={classes.media}
-                      />
-                      <CardContent>
-                        <Typography
-                          gutterBottom
-                          variant="h5"
-                          component="h2"
-                          align="center"
-                        >
-                          {movie.Title}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          Year: {movie.Year}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-              ))
-            ) : (
-              <Typography align="center" className={classes.message}>
-                Nothing here
-              </Typography>
-            )}
+            {displayedMoviesList
+              ? displayedMoviesList.map((movie: ICard) => (
+                  <Grid item key={movie.imdbID} xs={12} sm={6} md={4}>
+                    <Card className={classes.root}>
+                      <CardActionArea
+                        onClick={() => {
+                          handleClick(movie.imdbID);
+                          console.log(`movie.imdbID`, movie.imdbID);
+                        }}
+                      >
+                        {movie.Poster !== "N/A" ? (
+                          <CardMedia
+                            image={movie.Poster}
+                            title={movie.Title}
+                            className={classes.media}
+                          />
+                        ) : (
+                          <Typography
+                            gutterBottom
+                            variant="caption"
+                            component="h2"
+                            align="center"
+                            className={classes.message}
+                          >
+                            {movie.Title}, no poster
+                          </Typography>
+                        )}
+
+                        <CardContent>
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            component="h2"
+                            align="center"
+                          >
+                            {movie.Title}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            component="p"
+                          >
+                            Year: {movie.Year}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+                ))
+              : // <Typography align="center" className={classes.message}>
+                //   Nothing here
+                // </Typography>
+                null}
           </Grid>
-          {splittedMoviesList.length ? (
-            <Grid container justify="center" direction="row">
-              <Pagination
-                count={pagesCount}
-                size="large"
-                onChange={(event: React.ChangeEvent<any>, page: number) =>
-                  handleChange(event, page)
-                }
-              />
+          {displayedMoviesList.length ? (
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid
+              // container
+              // direction="row"
+              // justify="center"
+              // alignItems="center"
+              // className={classes.pagination}
+              >
+                <Pagination
+                  count={pagesCount}
+                  defaultPage={1}
+                  siblingCount={1}
+                  boundaryCount={1}
+                  size="large"
+                  className={classes.pagination}
+                  onChange={(event: React.ChangeEvent<any>, page: number) =>
+                    handleChange(event, page)
+                  }
+                />
+              </Grid>
             </Grid>
           ) : null}
         </Grid>
-        <ScrollTop {...null} className="positionRelative">
-          <Fab size="medium" aria-label="scroll back to top">
+        <ScrollTop {...null}>
+          <Fab size="small" aria-label="scroll back to top">
             <KeyboardArrowUpIcon />
           </Fab>
         </ScrollTop>

@@ -1,6 +1,8 @@
+import { moviesPerPageDefaultServerResponse } from "../../apiAttributes/apiAttributes";
+
 export const getPagesCount = (
   moviesListLength: number,
-  pagesSet: number = 6
+  pagesSet: number = moviesPerPageDefaultServerResponse
 ): number => {
   return Math.floor(moviesListLength / pagesSet) -
     moviesListLength / pagesSet ===

@@ -1,9 +1,10 @@
+import { moviesPerPageDefaultServerResponse } from "../../apiAttributes/apiAttributes";
 import { ICard } from "../../interfaces/ICard";
 
 export const splitMoviesList = (
   moviesList: ICard[],
   pagesCount: number,
-  pagesSet: number = 6
+  pagesSet: number = moviesPerPageDefaultServerResponse
 ) => {
   let result = [];
   let startIndex = 0;

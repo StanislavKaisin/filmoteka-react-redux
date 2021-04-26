@@ -15,7 +15,7 @@ import { SearchField } from "../components/SearchField";
 
 import mockList from "../mockData/mockList.json";
 import { hideLoader, showLoader } from "../redux/loader/loaderActions";
-import { SHOW_LOADER } from "../redux/loader/loaderTypes";
+
 import { IState } from "../redux/rootReducer";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,15 +32,30 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       height: "initial",
     },
+    searchRequest: {
+      padding: "1rem 0 1rem 0",
+      fontSize: "1.2rem",
+      fontWeight: 400,
+      textTransform: "uppercase",
+      textAlign: "center",
+      fontFamily: "Verdana",
+    },
   })
 );
 
 export const Home = () => {
   const classes = useStyles();
-  console.log("mockList.Search=", mockList.Search);
-  const moviesList = mockList.Search;
+  // console.log("mockList.Search=", mockList.Search);
+  // const moviesList = mockList.Search;
+  const moviesList = useSelector(
+    (state: IState) => state.searchResults.results
+  );
+  // console.log(`moviesList`, moviesList);
   let loading = useSelector((state: IState) => state.loader.loading);
-  console.log(`loading`, loading);
+  let search = useSelector((state: IState) => state.search.searchRequest);
+  let error = useSelector((state: IState) => state.error.error);
+
+  // console.log(`loading`, loading);
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(showLoader());
@@ -55,8 +70,19 @@ export const Home = () => {
           Your Movies Library
         </Typography>
         <SearchField />
-        <Button onClick={handleClick}>show loader</Button>
-        <Button onClick={handleClick2}>hide loader</Button>
+        {/* <Button onClick={handleClick}>show loader</Button>
+        <Button onClick={handleClick2}>hide loader</Button> */}
+        {/* {loading && <Loader />} */}
+        {search && (
+          <Typography variant="h2" className={classes.searchRequest}>
+            Results for : {search}
+          </Typography>
+        )}
+        {error && (
+          <Typography variant="h2" className={classes.searchRequest}>
+            {error}
+          </Typography>
+        )}
         {loading && <Loader />}
         <PaginationList moviesList={moviesList} />
       </Grid>

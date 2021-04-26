@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/library">
           <Library />
         </Route>
-        <Route exact path="/movie">
+        <Route path="/movie">
           <Movie />
         </Route>
       </Switch>
