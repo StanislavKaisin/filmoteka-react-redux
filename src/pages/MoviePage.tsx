@@ -47,6 +47,15 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "#9e9e9e",
       fontSize: "0.9rem",
     },
+    barButton: {
+      textAlign: "center",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: ".6rem",
+      },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "default",
+      },
+    },
   })
 );
 
@@ -131,23 +140,58 @@ export const MoviePage = () => {
             <Typography className={styles.infoTitle}>
               Box office: <Typography display="inline">{BoxOffice}</Typography>
             </Typography>
-            <Grid container item direction="row">
-              <IconButton
-                color="primary"
-                aria-label="upload picture"
-                component="span"
-                // href={`https://www.google.com/search?q=${Title}+${Year}+#movie`}
-              >
-                <PhotoCamera />
-              </IconButton>
+            <Grid
+              container
+              item
+              direction="row"
+              wrap="nowrap"
+              justify="space-between"
+              // spacing={1}
+            >
               <Button
+                className={styles.barButton}
+                variant="outlined"
+                size="small"
+                fullWidth={true}
+              >
+                {/* Add to */}
+                Remove from
+                <br />
+                Watched
+              </Button>
+              <Button
+                className={styles.barButton}
+                variant="outlined"
+                size="small"
+                fullWidth={true}
+              >
+                {/* Add to */}
+                Remove from
+                <br />
+                Planned
+              </Button>
+              <Button
+                className={styles.barButton}
+                variant="outlined"
+                size="small"
+                fullWidth={true}
+              >
+                {/* Add to */}
+                Remove from
+                <br />
+                Favorites
+              </Button>
+              <Button
+                className={styles.barButton}
+                variant="outlined"
+                size="small"
+                fullWidth={true}
                 href={`https://www.google.com/search?q=${Title}+${Year}+#movie`}
                 target="_blank"
               >
-                Watch
+                Advanced <br />
+                search
               </Button>
-              <Button>Plan</Button>
-              <Button>Favorites</Button>
             </Grid>
           </Grid>
         </Grid>
