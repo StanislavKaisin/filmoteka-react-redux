@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Home = () => {
+export const HomePage = () => {
   const classes = useStyles();
   // console.log("mockList.Search=", mockList.Search);
   // const moviesList = mockList.Search;

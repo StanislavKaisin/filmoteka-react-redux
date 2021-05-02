@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Movie = () => {
+export const MoviePage = () => {
   const theme = useTheme();
   const styles = useStyles();
   const matchesSm = useMediaQuery(theme.breakpoints.up("sm"));
@@ -136,10 +136,16 @@ export const Movie = () => {
                 color="primary"
                 aria-label="upload picture"
                 component="span"
+                // href={`https://www.google.com/search?q=${Title}+${Year}+#movie`}
               >
                 <PhotoCamera />
               </IconButton>
-              <Button>Watch</Button>
+              <Button
+                href={`https://www.google.com/search?q=${Title}+${Year}+#movie`}
+                target="_blank"
+              >
+                Watch
+              </Button>
               <Button>Plan</Button>
               <Button>Favorites</Button>
             </Grid>

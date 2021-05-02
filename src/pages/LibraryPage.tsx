@@ -59,7 +59,7 @@ function a11yProps(index: any) {
   };
 }
 
-export const Library = () => {
+export const LibraryPage = () => {
   // console.log("mockList.Search", mockList.Search);
   const classes = useStyles();
   const theme = useTheme();
