@@ -9,12 +9,24 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import { PhotoCamera } from "@material-ui/icons";
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { ICard } from "../interfaces/ICard";
 import { fetchMovie } from "../redux/fetchMovie/fetchMovieActions";
 import { IState } from "../redux/rootReducer";
+import {
+  addToLibrary,
+  removeFromLibrary,
+} from "../redux/library/libraryActions";
+import {
+  ADD_TO_LIBRARY,
+  ELibrary,
+  REMOVE_FROM_LIBRARY,
+} from "../redux/library/libraryTypes";
+import { AnyMxRecord } from "dns";
+import { LibraryButton } from "../components/LibraryButton";
 
 // import mockMovie from "../mockData/mockMovie.json";
 
@@ -74,9 +86,15 @@ export const MoviePage = () => {
     dispatch(fetchMovie(movieId));
   }, []);
   const movie = useSelector((state: IState) => state.movie?.movie!);
+  let watched = useSelector((state: IState) => state.library.watched);
   // console.log(`movie`, movie);
   // setmovie(useSelector((state: IState) => state.movie));
   // const movie = undefined;
+
+  let isWatchedInitialState = !!watched.find(
+    (watched) => watched.imdbID === movie.imdbID
+  );
+  const [isWatched, setisWatched] = useState<boolean>(isWatchedInitialState);
 
   if (!movie) return null;
   const {
@@ -92,7 +110,36 @@ export const MoviePage = () => {
     Genre,
     Runtime,
     BoxOffice,
+    Type,
+    imdbID,
   } = movie!;
+  const movieCard: ICard = { Poster, Title, Type, Year, imdbID };
+
+  // let isWatched = watched.includes(movieCard);
+  // // console.log(`watched=`, watched);
+  // console.log(`isWatched=`, isWatched);
+
+  const handleClick = (collection: string, isInLibrary: boolean) => {
+    console.log("click");
+    console.log("collection=", collection);
+    switch (collection) {
+      case ELibrary[0]:
+        isInLibrary
+          ? dispatch(addToLibrary(collection, movieCard))
+          : dispatch(removeFromLibrary(collection, movieCard));
+        // if (action === ADD_TO_LIBRARY) {
+        //   dispatch(addToLibrary(collection, movieCard));
+        // }
+        // if (action === REMOVE_FROM_LIBRARY) {
+        //   dispatch(removeFromLibrary(collection, movieCard));
+        // }
+        setisWatched(!isWatched);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       {movie ? (
@@ -148,39 +195,9 @@ export const MoviePage = () => {
               justify="space-between"
               // spacing={1}
             >
-              <Button
-                className={styles.barButton}
-                variant="outlined"
-                size="small"
-                fullWidth={true}
-              >
-                {/* Add to */}
-                Remove from
-                <br />
-                Watched
-              </Button>
-              <Button
-                className={styles.barButton}
-                variant="outlined"
-                size="small"
-                fullWidth={true}
-              >
-                {/* Add to */}
-                Remove from
-                <br />
-                Planned
-              </Button>
-              <Button
-                className={styles.barButton}
-                variant="outlined"
-                size="small"
-                fullWidth={true}
-              >
-                {/* Add to */}
-                Remove from
-                <br />
-                Favorites
-              </Button>
+              <LibraryButton libraryName={ELibrary[0]} movieCard={movieCard} />
+              <LibraryButton libraryName={ELibrary[1]} movieCard={movieCard} />
+              <LibraryButton libraryName={ELibrary[2]} movieCard={movieCard} />
               <Button
                 className={styles.barButton}
                 variant="outlined"

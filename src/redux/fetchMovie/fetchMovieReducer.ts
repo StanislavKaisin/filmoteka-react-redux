@@ -6,6 +6,10 @@ export interface IfetchMovieAction {
   payload: { fetchedMovie: IMovie };
 }
 
+const initialFetchMovieReducerState = {
+  fetchedMovie: null,
+};
+
 export const fetchMovieReducer = (
   state = initialFetchMovieReducerState,
   action: IfetchMovieAction
@@ -16,8 +20,4 @@ export const fetchMovieReducer = (
     default:
       return state;
   }
-};
-
-const initialFetchMovieReducerState = {
-  fetchedMovie: null,
 };

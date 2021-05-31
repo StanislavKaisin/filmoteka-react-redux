@@ -6,6 +6,7 @@ import { loaderReducer } from "./loader/loaderReducer";
 import { loadMovieReducer } from "./loadMovie/loadMovieReducer";
 import { searchReducer } from "./search/searchReducer";
 import { searchResultsReducer } from "./searchResults/searchResultsReducer";
+import { libraryReducer } from "./library/libraryReducer";
 
 export const rootReducer = combineReducers({
   search: searchReducer,
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
   loader: loaderReducer,
   error: errorReducer,
   movie: loadMovieReducer,
+  library: libraryReducer,
   // alert: alertReducer,
 });
 
