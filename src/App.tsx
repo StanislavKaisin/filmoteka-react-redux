@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { ApplicationBar } from "./components/AppBar";
 import { HomePage } from "./pages/HomePage";
 import { LibraryPage } from "./pages/LibraryPage";
@@ -19,6 +19,7 @@ function App() {
         <Route path="/movie">
           <MoviePage />
         </Route>
+        <Redirect from="/" to="/" />
       </Switch>
     </>
   );

@@ -66,15 +66,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface IPaginationList {
   moviesList: ICard[];
+  pagesCount: number;
 }
 
-export const PaginationList = ({ moviesList }: IPaginationList) => {
+export const PaginationList = ({ moviesList, pagesCount }: IPaginationList) => {
   // console.log("PaginationList=");
   const classes = useStyles();
   // const pagesCount = getPagesCount(moviesList.length);
-  const pagesCount = Math.ceil(
-    useSelector((state: IState) => state.searchResults.totalResults) / 10
-  );
+  // const pagesCount = Math.ceil(
+  //   useSelector((state: IState) => state.searchResults.totalResults) / 10
+  // );
   // const splittedMoviesList = splitMoviesList(moviesList, pagesCount);
   // console.log("moviesList", moviesList);
   // console.log("pagesCount", pagesCount);

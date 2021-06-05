@@ -12,6 +12,10 @@ import { AppBar, Box, Grid, Typography } from "@material-ui/core";
 import mockList from "../mockData/mockList.json";
 // import { ICard } from "../interfaces/ICard";
 import { PaginationList } from "../components/PaginationList";
+import { useSelector } from "react-redux";
+import { IState } from "../redux/rootReducer";
+import { ELibrary } from "../redux/library/libraryTypes";
+import { ICard } from "../interfaces/ICard";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -59,16 +63,29 @@ function a11yProps(index: any) {
   };
 }
 
+interface ILibraryLists {
+  [key: string]: ICard[];
+}
+
 export const LibraryPage = () => {
   // console.log("mockList.Search", mockList.Search);
   const classes = useStyles();
   const theme = useTheme();
-
+  const state = useSelector((state: IState) => state);
+  const planned = state.library[ELibrary[0]];
+  const watched = state.library[ELibrary[1]];
+  const favorites = state.library[ELibrary[2]];
   const [value, setValue] = React.useState(0);
-  const lists = [[], [], mockList.Search];
 
-  console.log("value", value);
-  console.log("lists[value]=", lists[value]);
+  // const libraryLists = [
+  //   { planned: planned, pagesCount: Math.ceil(planned.length / 10) },
+  //   { watched: watched, pagesCount: Math.ceil(watched.length / 10) },
+  //   { favorites: favorites, pagesCount: Math.ceil(favorites.length / 10) },
+  // ];
+  const libraryLists = [planned, watched, favorites];
+
+  // console.log("value", value);
+  // console.log("lists[value]=", lists[value]);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -116,13 +133,22 @@ export const LibraryPage = () => {
             onChangeIndex={handleChangeIndex}
           > */}
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <PaginationList moviesList={lists[0]} />
+            <PaginationList
+              moviesList={libraryLists[0]}
+              pagesCount={Math.ceil(libraryLists[0].length / 10)}
+            />
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <PaginationList moviesList={lists[1]} />
+            <PaginationList
+              moviesList={libraryLists[1]}
+              pagesCount={Math.ceil(libraryLists[1].length / 10)}
+            />
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>
-            <PaginationList moviesList={lists[2]} />
+            <PaginationList
+              moviesList={libraryLists[2]}
+              pagesCount={Math.ceil(libraryLists[2].length / 10)}
+            />
           </TabPanel>
           {/* </SwipeableViews> */}
           {/* </Paper> */}

@@ -63,6 +63,10 @@ export const HomePage = () => {
   const handleClick2 = () => {
     dispatch(hideLoader());
   };
+  const pagesCount = Math.ceil(
+    useSelector((state: IState) => state.searchResults.totalResults) / 10
+  );
+
   return (
     <>
       <Grid container direction="column" alignItems="center">
@@ -84,7 +88,7 @@ export const HomePage = () => {
           </Typography>
         )}
         {loading && <Loader />}
-        <PaginationList moviesList={moviesList} />
+        <PaginationList moviesList={moviesList} pagesCount={pagesCount} />
       </Grid>
     </>
   );
