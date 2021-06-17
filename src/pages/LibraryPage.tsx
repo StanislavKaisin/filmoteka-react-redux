@@ -27,6 +27,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   library: {
     paddingTop: "1rem",
   },
+  message: {
+    margin: "1rem",
+    color: "rgba(0, 0, 0, 0.54)",
+    textTransform: "uppercase",
+    textAlign: "center",
+  },
 }));
 
 interface TabPanelProps {
@@ -133,22 +139,34 @@ export const LibraryPage = () => {
             onChangeIndex={handleChangeIndex}
           > */}
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <PaginationList
-              moviesList={libraryLists[0]}
-              pagesCount={Math.ceil(libraryLists[0].length / 10)}
-            />
+            {libraryLists[0].length ? (
+              <PaginationList
+                moviesList={libraryLists[0]}
+                pagesCount={Math.ceil(libraryLists[0].length / 10)}
+              />
+            ) : (
+              <Typography className={classes.message}>Nothing here</Typography>
+            )}
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <PaginationList
-              moviesList={libraryLists[1]}
-              pagesCount={Math.ceil(libraryLists[1].length / 10)}
-            />
+            {libraryLists[1].length ? (
+              <PaginationList
+                moviesList={libraryLists[1]}
+                pagesCount={Math.ceil(libraryLists[1].length / 10)}
+              />
+            ) : (
+              <Typography className={classes.message}>Nothing here</Typography>
+            )}
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>
-            <PaginationList
-              moviesList={libraryLists[2]}
-              pagesCount={Math.ceil(libraryLists[2].length / 10)}
-            />
+            {libraryLists[2].length ? (
+              <PaginationList
+                moviesList={libraryLists[2]}
+                pagesCount={Math.ceil(libraryLists[2].length / 10)}
+              />
+            ) : (
+              <Typography className={classes.message}>Nothing here</Typography>
+            )}
           </TabPanel>
           {/* </SwipeableViews> */}
           {/* </Paper> */}

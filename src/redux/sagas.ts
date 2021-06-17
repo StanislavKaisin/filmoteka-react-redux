@@ -84,7 +84,7 @@ function* sagaMovieWorker(action: IfetchMovieAction) {
     yield put(showLoader());
     const movieId = action.payload;
     const result: IMovie[] = yield call(fetchMovie, movieId);
-    console.log(`result`, result);
+    // console.log(`result`, result);
     yield put({ type: LOAD_MOVIE, payload: result });
     yield put(hideLoader());
   } catch (error) {
@@ -140,7 +140,7 @@ const fetchMovie = async (imdbID: string): Promise<IMovie | null> => {
   return await axios
     .get(urlForCertainMovieFetch + imdbID + apiKey)
     .then((data) => {
-      console.log(`data`, data);
+      // console.log(`data`, data);
       return data.data;
     });
 };

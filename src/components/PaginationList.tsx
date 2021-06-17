@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "1rem",
       color: "rgba(0, 0, 0, 0.54)",
       textTransform: "uppercase",
-      // fontWeight: "bolder",
     },
     pagination: {
       width: "100%",
@@ -125,7 +124,7 @@ export const PaginationList = ({ moviesList, pagesCount }: IPaginationList) => {
                       <CardActionArea
                         onClick={() => {
                           handleClick(movie.imdbID);
-                          console.log(`movie.imdbID`, movie.imdbID);
+                          // console.log(`movie.imdbID`, movie.imdbID);
                         }}
                       >
                         {movie.Poster !== "N/A" ? (

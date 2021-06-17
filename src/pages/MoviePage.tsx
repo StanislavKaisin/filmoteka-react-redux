@@ -33,13 +33,14 @@ import { LibraryButton } from "../components/LibraryButton";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
+      justifyContent: "center",
       marginTop: "1rem",
       [theme.breakpoints.up("sm")]: {
         width: "90%",
         margin: "0 auto",
       },
       [theme.breakpoints.up("md")]: { width: "80%" },
-      [theme.breakpoints.up("lg")]: { width: "75%" },
+      [theme.breakpoints.up("lg")]: { width: "55%" },
     },
     descriptionContainer: {
       width: "80%",
@@ -54,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
     infoTitle: {
       fontSize: "1.1rem",
       fontWeight: "bold",
+    },
+    description: {
+      maxWidth: "34rem",
     },
     votes: {
       color: "#9e9e9e",
@@ -162,7 +166,7 @@ export const MoviePage = () => {
                 className={styles.year}
               >{` ${Year}`}</Typography>
             </Typography>
-            <Typography>{Plot}</Typography>
+            <Typography className={styles.description}>{Plot}</Typography>
             <Typography className={styles.infoTitle}>
               Awards: <Typography display="inline">{Awards}</Typography>
             </Typography>

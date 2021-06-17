@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ICard } from "../interfaces/ICard";
 import {
@@ -37,40 +37,48 @@ export const LibraryButton = ({
   // console.log("libraryName=", libraryName);
   const styles = useStyles();
   let library = useSelector((state: IState) => state.library[libraryName]);
-  console.log("libraryName in button=", libraryName);
-  console.log("library=", library);
-  console.log("library in button=", library);
-  let isInLibraryInitialState = !!library.find(
+  // console.log("libraryName in button=", libraryName);
+  // console.log("library=", library);
+  // console.log("library in button=", library);
+  // console.log("movieCard in button=", movieCard.Title);
+
+  const tryToFind = library.find(
     (movie) => movie.imdbID === movieCard.imdbID
   );
-  const [isInLibrary, setisInLibrary] = useState<boolean>(
-    isInLibraryInitialState
-  );
+  // console.log("tryToFind in button=", tryToFind);
+
+
+  let isInLibrary = (tryToFind === undefined) ? false : !!tryToFind;
+  // console.log("library.find in button=", library.find(
+  //   (movie) => movie.imdbID === movieCard.imdbID
+  // ));
+
+  // console.log("isInLibrary=", isInLibrary);
+
+
+  // const [isInLibrary, setisInLibrary] = useState<boolean>(
+  //   isInLibrary
+  // );
+  useEffect(() => {
+    // setisInLibrary(isInLibrary)
+  }, [isInLibrary])
+
+  // const [isInLibrary, setisInLibrary] = useState(
+  //   {includes: isInLibrary}
+  // );
+
+  // console.log("isInLibrary in button=", isInLibrary);
+
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    console.log("click");
-
-    // console.log("collection=", collection);
-    // console.log("isInLibrary=", isInLibrary);
-
-    // switch (collection) {
-    //   case ELibrary[0]:
+    // console.log("click");
     !isInLibrary
       ? dispatch(addToLibrary(libraryName, movieCard))
       : dispatch(removeFromLibrary(libraryName, movieCard));
-    setisInLibrary(!isInLibrary);
-    // if (action === ADD_TO_LIBRARY) {
-    //   dispatch(addToLibrary(collection, movieCard));
-    // }
-    // if (action === REMOVE_FROM_LIBRARY) {
-    //   dispatch(removeFromLibrary(collection, movieCard));
-    // }
-    //     setisWatched(!isWatched);
-    //     break;
-    //   default:
-    //     break;
-    // }
+    // setisInLibrary(!isInLibrary);
+    // setisInLibrary({includes: !isInLibrary.includes});
+
   };
   return (
     <Button
@@ -80,11 +88,8 @@ export const LibraryButton = ({
       fullWidth={true}
       onClick={handleClick}
     >
-      {!isInLibrary ? "Add to" : "Remove from"}
-      {/* Add to */}
-      {/* Remove from */}
+      {isInLibrary ? "Remove from" : "Add to"}
       <br />
-      {/* watched */}
       {libraryName}
     </Button>
   );
