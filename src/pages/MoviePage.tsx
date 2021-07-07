@@ -27,6 +27,7 @@ import {
 } from "../redux/library/libraryTypes";
 import { AnyMxRecord } from "dns";
 import { LibraryButton } from "../components/LibraryButton";
+import { Loader } from "../components/Loader";
 
 // import mockMovie from "../mockData/mockMovie.json";
 
@@ -91,6 +92,8 @@ export const MoviePage = () => {
   }, []);
   const movie = useSelector((state: IState) => state.movie?.movie!);
   let watched = useSelector((state: IState) => state.library.watched);
+  const loading = useSelector((state: IState) => state.loader.loading)
+
   // console.log(`movie`, movie);
   // setmovie(useSelector((state: IState) => state.movie));
   // const movie = undefined;
@@ -143,10 +146,18 @@ export const MoviePage = () => {
         break;
     }
   };
-
+  
   return (
     <>
-      {movie ? (
+    {loading ? (<Grid
+          container
+          direction={matchesSm ? "row" : "column"}
+          alignItems={matchesSm ? "flex-start" : "center"}
+          wrap={matchesSm ? "nowrap" : "wrap"}
+          spacing={2}
+          className={styles.container}
+        ><Loader /></Grid>):
+      (movie ? (
         <Grid
           container
           direction={matchesSm ? "row" : "column"}
@@ -218,7 +229,7 @@ export const MoviePage = () => {
         </Grid>
       ) : (
         <Typography>Error</Typography>
-      )}
+      ))}
     </>
   );
 };

@@ -9,13 +9,14 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import { AppBar, Box, Grid, Typography } from "@material-ui/core";
 // import SwipeableViews from "react-swipeable-views";
 
-import mockList from "../mockData/mockList.json";
+// import mockList from "../mockData/mockList.json";
 // import { ICard } from "../interfaces/ICard";
-import { PaginationList } from "../components/PaginationList";
+// import { PaginationList } from "../components/PaginationList";
 import { useSelector } from "react-redux";
 import { IState } from "../redux/rootReducer";
 import { ELibrary } from "../redux/library/libraryTypes";
 import { ICard } from "../interfaces/ICard";
+import { PaginationLibraryList } from "../components/PaginationLibraryList";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -140,7 +141,7 @@ export const LibraryPage = () => {
           > */}
           <TabPanel value={value} index={0} dir={theme.direction}>
             {libraryLists[0].length ? (
-              <PaginationList
+              <PaginationLibraryList
                 moviesList={libraryLists[0]}
                 pagesCount={Math.ceil(libraryLists[0].length / 10)}
               />
@@ -150,7 +151,7 @@ export const LibraryPage = () => {
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
             {libraryLists[1].length ? (
-              <PaginationList
+              <PaginationLibraryList
                 moviesList={libraryLists[1]}
                 pagesCount={Math.ceil(libraryLists[1].length / 10)}
               />
@@ -160,7 +161,7 @@ export const LibraryPage = () => {
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>
             {libraryLists[2].length ? (
-              <PaginationList
+              <PaginationLibraryList
                 moviesList={libraryLists[2]}
                 pagesCount={Math.ceil(libraryLists[2].length / 10)}
               />
@@ -168,8 +169,6 @@ export const LibraryPage = () => {
               <Typography className={classes.message}>Nothing here</Typography>
             )}
           </TabPanel>
-          {/* </SwipeableViews> */}
-          {/* </Paper> */}
         </div>
       </Grid>
     </>

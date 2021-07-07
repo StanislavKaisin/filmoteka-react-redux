@@ -16,7 +16,6 @@ import {
 import Pagination from "@material-ui/lab/Pagination";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import React from "react";
-// { useEffect, useState }
 
 import { ICard } from "../interfaces/ICard";
 // import { getPagesCount } from "./PaginationListHelpers/getPagesCount";
@@ -30,6 +29,7 @@ import { useHistory } from "react-router-dom";
 // import { Loader } from "./Loader";
 // import { useSelector } from "react-redux";
 // import { IState } from "../redux/rootReducer";
+import {moviesPerPageDefaultServerResponse} from "../apiAttributes/apiAttributes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -66,42 +66,24 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface IPaginationList {
   moviesList: ICard[];
   pagesCount: number;
+  currentPage?: number
 }
 
-export const PaginationList = ({ moviesList, pagesCount }: IPaginationList) => {
-  // console.log("PaginationList=");
+export const PaginationList = ({ moviesList, pagesCount, currentPage=1 }: IPaginationList) => {
   const classes = useStyles();
-  // const pagesCount = getPagesCount(moviesList.length);
-  // const pagesCount = Math.ceil(
-  //   useSelector((state: IState) => state.searchResults.totalResults) / 10
-  // );
-  // const splittedMoviesList = splitMoviesList(moviesList, pagesCount);
-  // console.log("moviesList", moviesList);
-  // console.log("pagesCount", pagesCount);
-  // const [displayedMoviesList, setdisplayedMoviesList] = useState(
-  //   splittedMoviesList[0]
-  // );
-  // useEffect(() => {
-  //   setdisplayedMoviesList(moviesList);
-  // }, [moviesList]);
-
-  // console.log("displayedMoviesList=", displayedMoviesList);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const displayedMoviesList = moviesList;
   const searchRequest = useSelector(
     (state: IState) => state.search.searchRequest
   );
+
   const dispatch = useDispatch();
   const history = useHistory();
   const handleChange = (event: React.ChangeEvent<any>, page: number) => {
-    // setdisplayedMoviesList(splittedMoviesList[page - 1]);
-    // console.log(`page`, page);
-    // console.log(`searchRequest`, searchRequest);
     dispatch(setCurrentPage(page));
   };
   const handleClick = (movieId: string) => {
-    // dispatch(fetchMovieAction(movieId));
     history.push("/movie/?=" + movieId);
   };
 
@@ -187,7 +169,7 @@ export const PaginationList = ({ moviesList, pagesCount }: IPaginationList) => {
               >
                 <Pagination
                   count={pagesCount}
-                  defaultPage={1}
+                  defaultPage={currentPage}
                   siblingCount={1}
                   boundaryCount={1}
                   size="large"

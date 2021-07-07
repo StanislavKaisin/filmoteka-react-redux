@@ -57,15 +57,12 @@ export const HomePage = () => {
 
   // console.log(`loading`, loading);
   const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(showLoader());
-  };
-  const handleClick2 = () => {
-    dispatch(hideLoader());
-  };
+
   const pagesCount = Math.ceil(
     useSelector((state: IState) => state.searchResults.totalResults) / 10
   );
+  const currentPage = 
+    useSelector((state: IState) => state.currentPage.currentPage)
 
   return (
     <>
@@ -88,7 +85,7 @@ export const HomePage = () => {
           </Typography>
         )}
         {loading && <Loader />}
-        <PaginationList moviesList={moviesList} pagesCount={pagesCount} />
+        <PaginationList moviesList={moviesList} pagesCount={pagesCount} currentPage={currentPage}/>
       </Grid>
     </>
   );
