@@ -5,10 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
-import thunk from "redux-thunk";
 
 import App from "./App";
 import { loadState, saveState } from "./redux/middleware/localStorage";
+
 import { rootReducer } from "./redux/rootReducer";
 import { sagaWatcher } from "./redux/sagas";
 import reportWebVitals from "./reportWebVitals";
