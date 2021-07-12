@@ -37,8 +37,9 @@ export const LibraryButton = ({
   // console.log("libraryName=", libraryName);
   const styles = useStyles();
   let library = useSelector((state: IState) => state.library[libraryName]);
-  // console.log("libraryName in button=", libraryName);
-  // console.log("library=", library);
+  console.log("state in button=", library);
+  console.log("libraryName in button=", libraryName);
+  console.log("library=", library);
   // console.log("library in button=", library);
   // console.log("movieCard in button=", movieCard.Title);
 

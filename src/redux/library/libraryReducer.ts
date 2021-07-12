@@ -10,7 +10,7 @@ export interface ILibrary {
 const libraryInitialState: ILibrary = {
   watched: [],
   planned: [],
-  favorite: [],
+  favorites: [],
 };
 
 // console.log(libraryInitialState);

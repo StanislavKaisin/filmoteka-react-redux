@@ -140,7 +140,7 @@ export const LibraryPage = () => {
             onChangeIndex={handleChangeIndex}
           > */}
           <TabPanel value={value} index={0} dir={theme.direction}>
-            {libraryLists[0].length ? (
+            {libraryLists[0]?.length ? (
               <PaginationLibraryList
                 moviesList={libraryLists[0]}
                 pagesCount={Math.ceil(libraryLists[0].length / 10)}
@@ -150,7 +150,7 @@ export const LibraryPage = () => {
             )}
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
-            {libraryLists[1].length ? (
+            {libraryLists[1]?.length ? (
               <PaginationLibraryList
                 moviesList={libraryLists[1]}
                 pagesCount={Math.ceil(libraryLists[1].length / 10)}
@@ -160,7 +160,7 @@ export const LibraryPage = () => {
             )}
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>
-            {libraryLists[2].length ? (
+            {libraryLists[2]?.length ? (
               <PaginationLibraryList
                 moviesList={libraryLists[2]}
                 pagesCount={Math.ceil(libraryLists[2].length / 10)}
