@@ -68,33 +68,22 @@ export interface IPaginationLibraryList {
 export const PaginationLibraryList = ({ moviesList, pagesCount, currentPage = 1 }: IPaginationLibraryList) => {
   const classes = useStyles();
   const theme = useTheme();
-  // const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  // const searchRequest = useSelector(
-  //   (state: IState) => state.search.searchRequest
-  // );
-  // console.log(`currentPage=`, currentPage);
 
-  // if there are more than 10 movies per page than this is libary list and movies should be splitted
   const moreThanMaxMoviesPerPage = moviesList.length % moviesPerPageDefaultServerResponse !== 0;
   console.log(`moviesList.length % moviesPerPageDefaultServerResponse=`, moviesList.length % moviesPerPageDefaultServerResponse);
   console.log(`moreThanMaxMoviesPerPage=`, moreThanMaxMoviesPerPage);
 
   const libraryLists = splitMoviesList(moviesList, pagesCount);
   console.log(`libraryLists=`, libraryLists);
-  // let displayedMoviesList = libraryLists[0];
-  // console.log(`displayedMoviesList=`, displayedMoviesList);
 
   const [displayedMoviesList, setdisplayedMoviesLiest] = useState(libraryLists[0])
 
-  // const dispatch = useDispatch();
   const history = useHistory();
 
 
 
   const handleChange = (event: React.ChangeEvent<any>, page: number) => {
-    // dispatch(setCurrentPage(page));
   console.log(`page=`, page);
-  // displayedMoviesList = libraryLists[page-1]
   console.log(`displayedMoviesList=`, displayedMoviesList);
   setdisplayedMoviesLiest(libraryLists[page-1])
   };
@@ -121,7 +110,6 @@ console.log(`displayedMoviesList=`, displayedMoviesList);
                     <CardActionArea
                       onClick={() => {
                         handleClick(movie.imdbID);
-                        // console.log(`movie.imdbID`, movie.imdbID);
                       }}
                     >
                       {movie.Poster !== "N/A" ? (
@@ -163,9 +151,7 @@ console.log(`displayedMoviesList=`, displayedMoviesList);
                   </Card>
                 </Grid>
               ))
-              : // <Typography align="center" className={classes.message}>
-              //   Nothing here
-              // </Typography>
+              : 
               null}
           </Grid>
           {displayedMoviesList.length ? (
@@ -176,11 +162,6 @@ console.log(`displayedMoviesList=`, displayedMoviesList);
               alignItems="center"
             >
               <Grid
-              // container
-              // direction="row"
-              // justify="center"
-              // alignItems="center"
-              // className={classes.pagination}
               >
                 <Pagination
                   count={pagesCount}

@@ -45,17 +45,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const HomePage = () => {
   const classes = useStyles();
-  // console.log("mockList.Search=", mockList.Search);
-  // const moviesList = mockList.Search;
+
   const moviesList = useSelector(
     (state: IState) => state.searchResults.results
   );
-  // console.log(`moviesList`, moviesList);
   let loading = useSelector((state: IState) => state.loader.loading);
   let search = useSelector((state: IState) => state.search.searchRequest);
   let error = useSelector((state: IState) => state.error.error);
 
-  // console.log(`loading`, loading);
   const dispatch = useDispatch();
 
   const pagesCount = Math.ceil(

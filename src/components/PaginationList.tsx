@@ -16,19 +16,12 @@ import {
 import Pagination from "@material-ui/lab/Pagination";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import React from "react";
-
 import { ICard } from "../interfaces/ICard";
-// import { getPagesCount } from "./PaginationListHelpers/getPagesCount";
-// import { splitMoviesList } from "./PaginationListHelpers/splitMoviesList";
 import { ScrollTop } from "./ScrollTop";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../redux/rootReducer";
 import { setCurrentPage } from "../redux/currentPage/currentPageActions";
-// import { fetchMovieAction } from "../redux/fetchMovie/fetchMovieActions";
 import { useHistory } from "react-router-dom";
-// import { Loader } from "./Loader";
-// import { useSelector } from "react-redux";
-// import { IState } from "../redux/rootReducer";
 import {moviesPerPageDefaultServerResponse} from "../apiAttributes/apiAttributes";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -97,7 +90,6 @@ export const PaginationList = ({ moviesList, pagesCount, currentPage=1 }: IPagin
             justify="center"
             direction="row"
             wrap="wrap"
-            // className={classes.positionContainer}
           >
             {displayedMoviesList
               ? displayedMoviesList.map((movie: ICard) => (
@@ -106,8 +98,7 @@ export const PaginationList = ({ moviesList, pagesCount, currentPage=1 }: IPagin
                       <CardActionArea
                         onClick={() => {
                           handleClick(movie.imdbID);
-                          // console.log(`movie.imdbID`, movie.imdbID);
-                        }}
+                                            }}
                       >
                         {movie.Poster !== "N/A" ? (
                           <CardMedia
@@ -148,9 +139,7 @@ export const PaginationList = ({ moviesList, pagesCount, currentPage=1 }: IPagin
                     </Card>
                   </Grid>
                 ))
-              : // <Typography align="center" className={classes.message}>
-                //   Nothing here
-                // </Typography>
+              : 
                 null}
           </Grid>
           {displayedMoviesList.length ? (
@@ -161,11 +150,6 @@ export const PaginationList = ({ moviesList, pagesCount, currentPage=1 }: IPagin
               alignItems="center"
             >
               <Grid
-              // container
-              // direction="row"
-              // justify="center"
-              // alignItems="center"
-              // className={classes.pagination}
               >
                 <Pagination
                   count={pagesCount}

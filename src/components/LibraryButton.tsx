@@ -34,52 +34,21 @@ export const LibraryButton = ({
   libraryName,
   movieCard,
 }: ILibraryButtonProps) => {
-  // console.log("libraryName=", libraryName);
   const styles = useStyles();
   let library = useSelector((state: IState) => state.library[libraryName]);
   console.log("state in button=", library);
   console.log("libraryName in button=", libraryName);
   console.log("library=", library);
-  // console.log("library in button=", library);
-  // console.log("movieCard in button=", movieCard.Title);
 
   const tryToFind = library.find(
     (movie) => movie.imdbID === movieCard.imdbID
   );
-  // console.log("tryToFind in button=", tryToFind);
-
-
   let isInLibrary = (tryToFind === undefined) ? false : !!tryToFind;
-  // console.log("library.find in button=", library.find(
-  //   (movie) => movie.imdbID === movieCard.imdbID
-  // ));
-
-  // console.log("isInLibrary=", isInLibrary);
-
-
-  // const [isInLibrary, setisInLibrary] = useState<boolean>(
-  //   isInLibrary
-  // );
-  useEffect(() => {
-    // setisInLibrary(isInLibrary)
-  }, [isInLibrary])
-
-  // const [isInLibrary, setisInLibrary] = useState(
-  //   {includes: isInLibrary}
-  // );
-
-  // console.log("isInLibrary in button=", isInLibrary);
-
   const dispatch = useDispatch();
-
   const handleClick = () => {
-    // console.log("click");
     !isInLibrary
       ? dispatch(addToLibrary(libraryName, movieCard))
       : dispatch(removeFromLibrary(libraryName, movieCard));
-    // setisInLibrary(!isInLibrary);
-    // setisInLibrary({includes: !isInLibrary.includes});
-
   };
   return (
     <Button

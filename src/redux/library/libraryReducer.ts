@@ -13,8 +13,6 @@ const libraryInitialState: ILibrary = {
   favorites: [],
 };
 
-// console.log(libraryInitialState);
-
 export const libraryReducer: Reducer<ILibrary, ILibraryAction> = (
   state = libraryInitialState,
   action: ILibraryAction
@@ -29,7 +27,6 @@ export const libraryReducer: Reducer<ILibrary, ILibraryAction> = (
       )
         return state;
 
-      // console.log(`state`, state);
       const newState = { ...state };
       newState[library] = [...newState[library], ...[action.payload.movie]];
       return { ...state, ...newState };

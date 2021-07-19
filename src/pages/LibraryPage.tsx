@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import Paper from "@material-ui/core/Paper";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -7,11 +6,6 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { AppBar, Box, Grid, Typography } from "@material-ui/core";
-// import SwipeableViews from "react-swipeable-views";
-
-// import mockList from "../mockData/mockList.json";
-// import { ICard } from "../interfaces/ICard";
-// import { PaginationList } from "../components/PaginationList";
 import { useSelector } from "react-redux";
 import { IState } from "../redux/rootReducer";
 import { ELibrary } from "../redux/library/libraryTypes";
@@ -75,7 +69,6 @@ interface ILibraryLists {
 }
 
 export const LibraryPage = () => {
-  // console.log("mockList.Search", mockList.Search);
   const classes = useStyles();
   const theme = useTheme();
   const state = useSelector((state: IState) => state);
@@ -84,15 +77,7 @@ export const LibraryPage = () => {
   const favorites = state.library[ELibrary[2]];
   const [value, setValue] = React.useState(0);
 
-  // const libraryLists = [
-  //   { planned: planned, pagesCount: Math.ceil(planned.length / 10) },
-  //   { watched: watched, pagesCount: Math.ceil(watched.length / 10) },
-  //   { favorites: favorites, pagesCount: Math.ceil(favorites.length / 10) },
-  // ];
   const libraryLists = [planned, watched, favorites];
-
-  // console.log("value", value);
-  // console.log("lists[value]=", lists[value]);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -107,7 +92,6 @@ export const LibraryPage = () => {
         className={classes.library}
       >
         <div className={classes.root}>
-          {/* <Paper square> */}
           <AppBar position="static" color="transparent" elevation={0}>
             <Tabs
               value={value}
@@ -134,12 +118,7 @@ export const LibraryPage = () => {
               />
             </Tabs>
           </AppBar>
-          {/* <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={value}
-            onChangeIndex={handleChangeIndex}
-          > */}
-          <TabPanel value={value} index={0} dir={theme.direction}>
+           <TabPanel value={value} index={0} dir={theme.direction}>
             {libraryLists[0]?.length ? (
               <PaginationLibraryList
                 moviesList={libraryLists[0]}

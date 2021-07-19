@@ -13,12 +13,10 @@ export const rootReducer = combineReducers({
   searchResults: searchResultsReducer,
   currentPage: currentPageReducer,
   fetchMovie: fetchMovieReducer,
-  // fetchedPosts: fetchPostsReducer,
   loader: loaderReducer,
   error: errorReducer,
   movie: loadMovieReducer,
   library: libraryReducer,
-  // alert: alertReducer,
 });
 
 export type IState = ReturnType<typeof rootReducer>;

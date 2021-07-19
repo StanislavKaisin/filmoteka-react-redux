@@ -51,8 +51,6 @@ export const SearchField = () => {
     dispatch({ type: SEARCH_MOVIE, payload: search.trim() });
     setsearch("");
     searchField.current!.value = "";
-    // console.log(`event`, event.target);
-    // console.log(`searchField.current?.value`, searchField.current?.value);
   };
 
   return (
@@ -68,8 +66,7 @@ export const SearchField = () => {
           inputProps={{ "aria-label": "Search Movie" }}
           name="search"
           onChange={handleChange}
-          // ref={searchField}
-          inputRef={searchField}
+              inputRef={searchField}
         />
         <IconButton
           type="submit"

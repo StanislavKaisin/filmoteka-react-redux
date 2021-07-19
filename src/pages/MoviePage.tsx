@@ -29,7 +29,6 @@ import { AnyMxRecord } from "dns";
 import { LibraryButton } from "../components/LibraryButton";
 import { Loader } from "../components/Loader";
 
-// import mockMovie from "../mockData/mockMovie.json";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -83,20 +82,13 @@ export const MoviePage = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  // console.log(`history`, history);
-  // const [movie, setmovie] = useState(null);
   useEffect(() => {
-    // console.log(`history`, history);
     const movieId = history.location.search.split("=")[1];
     dispatch(fetchMovie(movieId));
   }, []);
   const movie = useSelector((state: IState) => state.movie?.movie!);
   let watched = useSelector((state: IState) => state.library.watched);
   const loading = useSelector((state: IState) => state.loader.loading)
-
-  // console.log(`movie`, movie);
-  // setmovie(useSelector((state: IState) => state.movie));
-  // const movie = undefined;
 
   let isWatchedInitialState = !!watched.find(
     (watched) => watched.imdbID === movie.imdbID
@@ -122,10 +114,6 @@ export const MoviePage = () => {
   } = movie!;
   const movieCard: ICard = { Poster, Title, Type, Year, imdbID };
 
-  // let isWatched = watched.includes(movieCard);
-  // // console.log(`watched=`, watched);
-  // console.log(`isWatched=`, isWatched);
-
   const handleClick = (collection: string, isInLibrary: boolean) => {
     console.log("click");
     console.log("collection=", collection);
@@ -134,12 +122,6 @@ export const MoviePage = () => {
         isInLibrary
           ? dispatch(addToLibrary(collection, movieCard))
           : dispatch(removeFromLibrary(collection, movieCard));
-        // if (action === ADD_TO_LIBRARY) {
-        //   dispatch(addToLibrary(collection, movieCard));
-        // }
-        // if (action === REMOVE_FROM_LIBRARY) {
-        //   dispatch(removeFromLibrary(collection, movieCard));
-        // }
         setisWatched(!isWatched);
         break;
       default:
@@ -208,8 +190,7 @@ export const MoviePage = () => {
               direction="row"
               wrap="nowrap"
               justify="space-between"
-              // spacing={1}
-            >
+             >
               <LibraryButton libraryName={ELibrary[0]} movieCard={movieCard} />
               <LibraryButton libraryName={ELibrary[1]} movieCard={movieCard} />
               <LibraryButton libraryName={ELibrary[2]} movieCard={movieCard} />
