@@ -70,28 +70,17 @@ export const PaginationLibraryList = ({ moviesList, pagesCount, currentPage = 1 
   const theme = useTheme();
 
   const moreThanMaxMoviesPerPage = moviesList.length % moviesPerPageDefaultServerResponse !== 0;
-  console.log(`moviesList.length % moviesPerPageDefaultServerResponse=`, moviesList.length % moviesPerPageDefaultServerResponse);
-  console.log(`moreThanMaxMoviesPerPage=`, moreThanMaxMoviesPerPage);
-
   const libraryLists = splitMoviesList(moviesList, pagesCount);
-  console.log(`libraryLists=`, libraryLists);
-
   const [displayedMoviesList, setdisplayedMoviesLiest] = useState(libraryLists[0])
-
   const history = useHistory();
-
-
-
   const handleChange = (event: React.ChangeEvent<any>, page: number) => {
-  console.log(`page=`, page);
-  console.log(`displayedMoviesList=`, displayedMoviesList);
   setdisplayedMoviesLiest(libraryLists[page-1])
   };
 
   const handleClick = (movieId: string) => {
     history.push("/movie/?=" + movieId);
   };
-console.log(`displayedMoviesList=`, displayedMoviesList);
+
   return (
       <>
       <Grid container spacing={0}>

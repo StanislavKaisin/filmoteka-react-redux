@@ -36,9 +36,6 @@ export const LibraryButton = ({
 }: ILibraryButtonProps) => {
   const styles = useStyles();
   let library = useSelector((state: IState) => state.library[libraryName]);
-  console.log("state in button=", library);
-  console.log("libraryName in button=", libraryName);
-  console.log("library=", library);
 
   const tryToFind = library.find(
     (movie) => movie.imdbID === movieCard.imdbID

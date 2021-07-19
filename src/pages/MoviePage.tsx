@@ -115,8 +115,6 @@ export const MoviePage = () => {
   const movieCard: ICard = { Poster, Title, Type, Year, imdbID };
 
   const handleClick = (collection: string, isInLibrary: boolean) => {
-    console.log("click");
-    console.log("collection=", collection);
     switch (collection) {
       case ELibrary[0]:
         isInLibrary
