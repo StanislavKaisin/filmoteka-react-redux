@@ -1,0 +1,18 @@
+docker build -t movie-library .
+
+heroku login
+heroku container:login
+heroku create
+https://boiling-badlands-37520.herokuapp.com/ 
+heroku container:push web --app boiling-badlands-37520
+heroku open --app boiling-badlands-37520
+
+heroku container:release web --app boiling-badlands-37520
+
+heroku logs -t --app boiling-badlands-37520
+
+git remote add -m filmoteka-react-redux git@github.com:StanislavKaisin/filmoteka-react-redux.git
+
+git remote add origin git@github.com:StanislavKaisin/filmoteka-react-redux.git
+
+
